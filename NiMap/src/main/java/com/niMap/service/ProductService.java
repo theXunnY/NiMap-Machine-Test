@@ -8,13 +8,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.niMap.entity.Category;
 import com.niMap.entity.Product;
+import com.niMap.repository.CategoryRepository;
 import com.niMap.repository.ProductRepository;
 @Service
 public class ProductService {
 
 	@Autowired
 	private ProductRepository repository;
+	
+	@Autowired
+	private CategoryRepository  categoryRepository;
 	
 	public List<Product> getAllProducts() {
 		return repository.findAll();
@@ -29,8 +34,14 @@ public class ProductService {
         if (product != null) {
             product.setName(updatedProduct.getName());
             product.setPrice(updatedProduct.getPrice());
-            product.setQuantity(updatedProduct.getQuantity());            
-            product.setCategory(updatedProduct.getCategory());
+            product.setQuantity(updatedProduct.getQuantity());
+
+            Category category= categoryRepository.findById(updatedProduct.getCategory().getId()).get();
+            System.out.println(category);
+            if (category != null) {
+				product.setCategory(category);
+			}
+            System.out.println(categoryRepository.findById( updatedProduct.getCategory().getId()).get().getName());            
             return repository.save(product);
         }
         return null;
