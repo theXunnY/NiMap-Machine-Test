@@ -80,7 +80,7 @@ Retrieve a paginated list of all categories.
 
 **Query Parameters:**
 - `page` (optional, default: `0`): Page number to retrieve.
-- `size` (optional, default: `5`): Number of categories per page.
+- `size` (optional, default: `4`): Number of categories per page.
 
 **Response:**
 - A list of categories with pagination information (total pages, current page, etc.).
